@@ -1,109 +1,132 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Te Adoro 💖</title>
+  <title>Te Adoro Mashiel 💖</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }body, html {
-  height: 100%;
-  background-color: #000;
-  overflow: hidden;
-  position: relative;
-  font-family: 'Arial', sans-serif;
-}
+    }
 
-.center-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 8vw;
-  color: #ff69b4;
-  font-weight: bold;
-  text-align: center;
-  z-index: 10;
-  white-space: nowrap;
-}
+    html, body {
+      height: 100%;
+      background-color: #000;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      position: relative;
+    }
 
-.falling-text, .shot-text {
-  position: absolute;
-  color: #ff69b4;
-  font-size: 5vw;
-  white-space: nowrap;
-  user-select: none;
-  pointer-events: none;
-}
+    .center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.8em;
+      text-align: center;
+      color: #ff69b4;
+      font-weight: bold;
+      z-index: 10;
+      text-shadow: 0 0 15px #ff69b4;
+    }
 
+    .falling {
+      position: absolute;
+      font-size: 1rem;
+      color: #ffb6c1;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    .shooting {
+      position: absolute;
+      font-size: 1.2rem;
+      color: #ff69b4;
+      animation: shoot 1s ease-out forwards;
+      pointer-events: none;
+      text-shadow: 0 0 8px #ff69b4;
+    }
+
+    @keyframes shoot {
+      0% {
+        transform: translateZ(0px) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateZ(400px) scale(3);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .center-text {
+        font-size: 2em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .center-text {
+        font-size: 1.6em;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="center-text">TE ADORO 💖</div>  <script>
-    // Crear texto que cae desde la parte superior
+
+  <div class="center-text">TE ADORO MASHIEL 💖</div>
+
+  <script>
+    // Función para crear textos que caen
     function createFallingText() {
-      const text = document.createElement('div');
-      text.className = 'falling-text';
-      text.innerText = 'Te Adoro';
-      text.style.left = Math.random() * window.innerWidth + 'px';
-      text.style.top = '-50px';
+      const text = document.createElement("div");
+      text.classList.add("falling");
+      text.innerText = "Te Adoro";
+      text.style.left = Math.random() * window.innerWidth + "px";
+      text.style.top = "-20px";
+      text.style.animationDuration = (Math.random() * 2 + 2) + "s";
       document.body.appendChild(text);
 
-      const speed = 1 + Math.random() * 2;
-
-      function fall() {
-        const top = parseFloat(text.style.top);
-        if (top < window.innerHeight) {
-          text.style.top = top + speed + 'px';
-          requestAnimationFrame(fall);
-        } else {
-          text.remove();
-        }
-      }
-      fall();
+      setTimeout(() => text.remove(), 4000);
     }
 
-    // Disparar texto hacia adelante (simulación 3D)
-    function shootText(x, y) {
-      const text = document.createElement('div');
-      text.className = 'shot-text';
-      text.innerText = 'Te Adoro';
-      text.style.left = x + 'px';
-      text.style.top = y + 'px';
-      text.style.fontSize = '4vw';
-      document.body.appendChild(text);
-
-      let scale = 1;
-      let opacity = 1;
-
-      function animate() {
-        scale += 0.05;
-        opacity -= 0.02;
-        text.style.transform = `scale(${scale})`;
-        text.style.opacity = opacity;
-
-        if (opacity > 0) {
-          requestAnimationFrame(animate);
-        } else {
-          text.remove();
-        }
-      }
-      animate();
-    }
-
-    // Crear textos cayendo continuamente
+    // Ejecutar la lluvia cada 300ms
     setInterval(createFallingText, 300);
 
-    // Evento para cualquier toque o clic en pantalla
-    document.addEventListener('click', (e) => {
-      shootText(e.clientX, e.clientY);
+    // Crear efecto disparo al hacer clic o tocar
+    function createShootingText(x, y) {
+      const text = document.createElement("div");
+      text.classList.add("shooting");
+      text.innerText = "Te Adoro";
+      text.style.left = x + "px";
+      text.style.top = y + "px";
+      document.body.appendChild(text);
+
+      setTimeout(() => text.remove(), 1000);
+    }
+
+    // Detectar clics o toques
+    document.addEventListener("click", (e) => {
+      createShootingText(e.clientX, e.clientY);
     });
 
-    document.addEventListener('touchstart', (e) => {
+    document.addEventListener("touchstart", (e) => {
       const touch = e.touches[0];
-      shootText(touch.clientX, touch.clientY);
+      createShootingText(touch.clientX, touch.clientY);
     });
-  </script></body>
+  </script>
+
+</body>
 </html>
