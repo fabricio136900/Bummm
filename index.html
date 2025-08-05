@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Te Adoro Mashiel 💖</title>
   <style>
     * {
@@ -11,12 +11,13 @@
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
-      background-color: #000;
+    body {
+      background-color: black;
       overflow: hidden;
       font-family: 'Arial', sans-serif;
       position: relative;
+      height: 100vh;
+      width: 100vw;
     }
 
     .center-text {
@@ -24,109 +25,106 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 2.8em;
+      font-size: 8vw;
+      color: #ff66cc;
+      text-shadow: 0 0 10px #ff99cc;
       text-align: center;
-      color: #ff69b4;
-      font-weight: bold;
-      z-index: 10;
-      text-shadow: 0 0 15px #ff69b4;
     }
 
-    .falling {
+    .falling, .flying {
       position: absolute;
-      font-size: 1rem;
       color: #ffb6c1;
-      animation: fall linear forwards;
-      pointer-events: none;
+      text-shadow: 0 0 5px #fff;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+      will-change: transform;
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(-100px);
+      from {
+        transform: translateY(0);
         opacity: 1;
       }
-      100% {
+      to {
         transform: translateY(100vh);
         opacity: 0;
       }
     }
 
-    .shooting {
-      position: absolute;
-      font-size: 1.2rem;
-      color: #ff69b4;
-      animation: shoot 1s ease-out forwards;
-      pointer-events: none;
-      text-shadow: 0 0 8px #ff69b4;
-    }
-
-    @keyframes shoot {
+    @keyframes fly {
       0% {
-        transform: translateZ(0px) scale(1);
+        transform: translateZ(0) scale(1);
         opacity: 1;
       }
       100% {
-        transform: translateZ(400px) scale(3);
+        transform: translateZ(1000px) scale(3);
         opacity: 0;
       }
     }
 
-    @media (max-width: 768px) {
-      .center-text {
-        font-size: 2em;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .center-text {
-        font-size: 1.6em;
-      }
+    .flying {
+      animation-name: fly;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
 
-  <div class="center-text">TE ADORO MASHIEL 💖</div>
+  <div class="center-text">TE ADORO 💖</div>
 
   <script>
-    // Función para crear textos que caen
+    // Crea el efecto de caída aleatoria
     function createFallingText() {
       const text = document.createElement("div");
       text.classList.add("falling");
       text.innerText = "Te Adoro";
+
+      // Tamaño aleatorio
+      const fontSize = Math.floor(Math.random() * 14) + 12;
+      text.style.fontSize = fontSize + "px";
+
+      // Posición aleatoria horizontal
       text.style.left = Math.random() * window.innerWidth + "px";
-      text.style.top = "-20px";
-      text.style.animationDuration = (Math.random() * 2 + 2) + "s";
+      text.style.top = "-30px";
+
+      // Duración aleatoria
+      text.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
       document.body.appendChild(text);
 
-      setTimeout(() => text.remove(), 4000);
+      // Eliminar después
+      setTimeout(() => text.remove(), 5000);
     }
 
-    // Ejecutar la lluvia cada 300ms
-    setInterval(createFallingText, 300);
-
-    // Crear efecto disparo al hacer clic o tocar
-    function createShootingText(x, y) {
+    // Efecto 3D al hacer clic o tocar
+    function shootText(x, y) {
       const text = document.createElement("div");
-      text.classList.add("shooting");
+      text.classList.add("flying");
       text.innerText = "Te Adoro";
+
+      // Estilo inicial
       text.style.left = x + "px";
       text.style.top = y + "px";
+      text.style.fontSize = "16px";
+
       document.body.appendChild(text);
 
+      // Eliminar después
       setTimeout(() => text.remove(), 1000);
     }
 
-    // Detectar clics o toques
-    document.addEventListener("click", (e) => {
-      createShootingText(e.clientX, e.clientY);
-    });
+    // Genera caída continua
+    setInterval(createFallingText, 200);
 
+    // Disparo en clic o toque
+    document.addEventListener("click", (e) => shootText(e.clientX, e.clientY));
     document.addEventListener("touchstart", (e) => {
       const touch = e.touches[0];
-      createShootingText(touch.clientX, touch.clientY);
+      shootText(touch.clientX, touch.clientY);
     });
   </script>
-
 </body>
 </html>
