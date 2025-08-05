@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Te adoro 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 1.5rem;
+      background: rgba(0,0,0,0.4);
+      padding: 20px;
+      border-radius: 20px;
+      z-index: 2;
+    }
+
+    .adoro {
+      position: absolute;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      animation: float 2.5s ease-out forwards;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @keyframes float {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1.8) rotate(20deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="center-text">
+    <p>Cada día contigo es un regalo.<br>
+    Hoy, este es para ti.<br>
+    <strong>Te adoro.</strong></p>
+  </div>
+
+  <script>
+    function generarAdoros(cantidad) {
+      for (let i = 0; i < cantidad; i++) {
+        const span = document.createElement("span");
+        span.textContent = "TE ADORO 💖";
+        span.className = "adoro";
+
+        // Posición aleatoria
+        span.style.left = Math.random() * window.innerWidth + "px";
+        span.style.top = Math.random() * window.innerHeight + "px";
+
+        // Tamaño aleatorio
+        span.style.fontSize = (Math.random() * 1.5 + 1) + "rem";
+
+        document.body.appendChild(span);
+
+        // Borrar después de animación
+        setTimeout(() => span.remove(), 2500);
+      }
+    }
+
+    document.body.addEventListener("click", () => {
+      generarAdoros(30); // 💥 Genera 30 "TE ADORO"
+    });
+  </script>
+</body>
+</html> 
