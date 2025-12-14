@@ -1,184 +1,172 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Te Adoro 💖</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Te Amo Carla 💖</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    html, body {
-      height: 100%;
-      background-color: #000;
-      overflow: hidden;
-      font-family: 'Arial', sans-serif;
-      position: relative;
-    }
+html, body {
+  height: 100%;
+  background: radial-gradient(circle at top, #120018, #000);
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
 
-    .center-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2.8em;
-      text-align: center;
-      color: #ff69b4;
-      font-weight: bold;
-      z-index: 10;
-      text-shadow: 0 0 15px #ff69b4;
-    }
+/* TEXTO CENTRAL */
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  color: #ff69b4;
+  font-weight: bold;
+  text-align: center;
+  z-index: 20;
+  text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff1493;
+  animation: pulse 3s infinite;
+}
 
-    .falling {
-      position: absolute;
-      font-size: 1rem;
-      color: #ffb6c1;
-      animation: fall linear forwards;
-      pointer-events: none;
-      text-shadow: 0 0 6px #ffb6c1;
-    }
+@keyframes pulse {
+  0%,100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.08); }
+}
 
-    @keyframes fall {
-      0% {
-        transform: translateY(-100px);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-    }
+/* ELEMENTOS DE FONDO */
+.bg-item {
+  position: absolute;
+  pointer-events: none;
+  animation-timing-function: linear;
+  opacity: 0;
+}
 
-    .shooting {
-      position: absolute;
-      font-size: 1.2rem;
-      color: #ff69b4;
-      animation: shoot 1s ease-out forwards;
-      pointer-events: none;
-      text-shadow: 0 0 8px #ff69b4;
-    }
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg) scale(0.6); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg) scale(1); opacity: 0; }
+}
 
-    @keyframes shoot {
-      0% {
-        transform: translateZ(0px) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateZ(400px) scale(3);
-        opacity: 0;
-      }
-    }
+@keyframes floatUp {
+  0% { transform: translateY(110vh) scale(0.6); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+}
 
-    @media (max-width: 768px) {
-      .center-text {
-        font-size: 2em;
-      }
-    }
+/* TEXTO CAYENDO */
+.falling {
+  position: absolute;
+  font-size: 1rem;
+  color: #ffb6c1;
+  animation: fall linear forwards;
+  text-shadow: 0 0 8px #ffb6c1;
+  z-index: 5;
+}
 
-    @media (max-width: 480px) {
-      .center-text {
-        font-size: 1.6em;
-      }
-    }
-  </style>
+/* TEXTO AL CLICK */
+.shooting {
+  position: absolute;
+  font-size: 1.3rem;
+  color: #ff69b4;
+  animation: shoot 1s ease-out forwards;
+  text-shadow: 0 0 12px #ff69b4;
+  z-index: 15;
+}
+
+@keyframes shoot {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .center-text { font-size: 2em; }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="center-text">TE ADORO CARLA 💖</div>
+<div class="center-text">TE ADORO CARLA 💖</div>
 
-  <script>
-    // ===============================
-    // FRASES ROMÁNTICAS
-    // ===============================
-    const frases = [
-      "Te Amo",
-      "Te Adoro",
-      "Te Quiero",
-      "Te Pienso",
-      "Te Anhelo",
-      "Te Elijo",
-      "Te Siento",
-      "Te Extraño",
-      "Te Cuido",
-      "Te Abrazo",
-      "Te Sueño",
-      "Te Admiro",
-      "Te Necesito",
-      "Te Elijo Cada Día",
-      "Te Llevo Conmigo",
-      "Te Guardo En Mi Corazón",
-      "Te Amo Eternamente",
-      "Te Pertenezco",
-      "Te Espero Siempre",
-    
-      "Eres Mi Hogar",
-      "Eres Mi Paz",
-      "Eres Mi Todo",
-      "Eres Mi Promesa",
-      "Eres Mi Destino",
-      "Eres Mi Siempre",
-    
-      "Mi Vida",
-      "Mi Amor",
-      "Mi Todo",
-      "Mi Futuro Eres Tú",
-      "Contigo Siempre",
-      "Juntos Por Siempre",
-      "Hasta El Final",
-      "Para Toda La Vida"
-    ];
+<script>
+// ===============================
+// FRASES
+// ===============================
+const frases = [
+  "Te Amo","Te Adoro","Te Quiero","Te Pienso","Te Anhelo",
+  "Te Elijo","Te Siento","Te Extraño","Te Cuido","Te Abrazo",
+  "Te Sueño","Te Admiro","Te Necesito","Te Elijo Cada Día",
+  "Te Llevo Conmigo","Te Guardo En Mi Corazón","Te Amo Eternamente",
+  "Te Pertenezco","Te Espero Siempre","Eres Mi Hogar","Eres Mi Paz",
+  "Eres Mi Todo","Eres Mi Promesa","Eres Mi Destino","Eres Mi Siempre",
+  "Mi Vida","Mi Amor","Mi Todo","Mi Futuro Eres Tú",
+  "Contigo Siempre","Juntos Por Siempre","Hasta El Final","Para Toda La Vida"
+];
 
+const emojis = ["💖","💕","💘","💝","💞","😍","🥰","😘","⭐","✨","🌟"];
 
-    function fraseAleatoria() {
-      return frases[Math.floor(Math.random() * frases.length)];
-    }
+function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-    // ===============================
-    // TEXTO QUE CAE
-    // ===============================
-    function createFallingText() {
-      const text = document.createElement("div");
-      text.classList.add("falling");
-      text.innerText = fraseAleatoria();
-      text.style.left = Math.random() * window.innerWidth + "px";
-      text.style.top = "-20px";
-      text.style.animationDuration = (Math.random() * 2 + 2) + "s";
-      document.body.appendChild(text);
+// ===============================
+// LLUVIA DE FRASES
+// ===============================
+function createFallingText() {
+  const el = document.createElement("div");
+  el.className = "falling";
+  el.innerText = random(frases);
+  el.style.left = Math.random() * window.innerWidth + "px";
+  el.style.animationDuration = 2 + Math.random() * 3 + "s";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 5000);
+}
+setInterval(createFallingText, 300);
 
-      setTimeout(() => text.remove(), 4000);
-    }
+// ===============================
+// FONDO ANIMADO (EMOJIS)
+// ===============================
+function createBackgroundItem() {
+  const el = document.createElement("div");
+  el.className = "bg-item";
+  el.innerText = random(emojis);
+  el.style.left = Math.random() * window.innerWidth + "px";
+  el.style.fontSize = 16 + Math.random() * 30 + "px";
+  el.style.animationDuration = 5 + Math.random() * 8 + "s";
+  el.style.animationName = Math.random() > 0.5 ? "fall" : "floatUp";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 12000);
+}
+setInterval(createBackgroundItem, 200);
 
-    // Lluvia cada 300 ms
-    setInterval(createFallingText, 300);
+// ===============================
+// CLICK / TOUCH
+// ===============================
+function createShootingText(x, y) {
+  const el = document.createElement("div");
+  el.className = "shooting";
+  el.innerText = random(frases);
+  el.style.left = x + "px";
+  el.style.top = y + "px";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1000);
+}
 
-    // ===============================
-    // TEXTO AL HACER CLICK / TOCAR
-    // ===============================
-    function createShootingText(x, y) {
-      const text = document.createElement("div");
-      text.classList.add("shooting");
-      text.innerText = fraseAleatoria();
-      text.style.left = x + "px";
-      text.style.top = y + "px";
-      document.body.appendChild(text);
+document.addEventListener("click", e => {
+  createShootingText(e.clientX, e.clientY);
+});
 
-      setTimeout(() => text.remove(), 1000);
-    }
-
-    document.addEventListener("click", (e) => {
-      createShootingText(e.clientX, e.clientY);
-    });
-
-    document.addEventListener("touchstart", (e) => {
-      const touch = e.touches[0];
-      createShootingText(touch.clientX, touch.clientY);
-    });
-  </script>
+document.addEventListener("touchstart", e => {
+  const t = e.touches[0];
+  createShootingText(t.clientX, t.clientY);
+});
+</script>
 
 </body>
 </html>
