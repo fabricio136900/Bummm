@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Te Adoro 💖</title>
+
   <style>
     * {
       margin: 0;
@@ -38,6 +39,7 @@
       color: #ffb6c1;
       animation: fall linear forwards;
       pointer-events: none;
+      text-shadow: 0 0 6px #ffb6c1;
     }
 
     @keyframes fall {
@@ -84,16 +86,42 @@
     }
   </style>
 </head>
+
 <body>
 
-  <div class="center-text">TE ADORO MASHIEL 💖</div>
+  <div class="center-text">TE ADORO CARLA 💖</div>
 
   <script>
-    // Función para crear textos que caen
+    // ===============================
+    // FRASES ROMÁNTICAS
+    // ===============================
+    const frases = [
+      "Te Amo",
+      "Te Adoro",
+      "Te Quiero",
+      "Te Pienso",
+      "Te Anhelo",
+      "Te Elijo",
+      "Te Extraño",
+      "Te Sueño",
+      "Te Necesito",
+      "Te Admiro",
+      "Mi Vida",
+      "Mi Amor",
+      "Mi Todo"
+    ];
+
+    function fraseAleatoria() {
+      return frases[Math.floor(Math.random() * frases.length)];
+    }
+
+    // ===============================
+    // TEXTO QUE CAE
+    // ===============================
     function createFallingText() {
       const text = document.createElement("div");
       text.classList.add("falling");
-      text.innerText = "Te Adoro";
+      text.innerText = fraseAleatoria();
       text.style.left = Math.random() * window.innerWidth + "px";
       text.style.top = "-20px";
       text.style.animationDuration = (Math.random() * 2 + 2) + "s";
@@ -102,14 +130,16 @@
       setTimeout(() => text.remove(), 4000);
     }
 
-    // Ejecutar la lluvia cada 300ms
+    // Lluvia cada 300 ms
     setInterval(createFallingText, 300);
 
-    // Crear efecto disparo al hacer clic o tocar
+    // ===============================
+    // TEXTO AL HACER CLICK / TOCAR
+    // ===============================
     function createShootingText(x, y) {
       const text = document.createElement("div");
       text.classList.add("shooting");
-      text.innerText = "Te Adoro";
+      text.innerText = fraseAleatoria();
       text.style.left = x + "px";
       text.style.top = y + "px";
       document.body.appendChild(text);
@@ -117,7 +147,6 @@
       setTimeout(() => text.remove(), 1000);
     }
 
-    // Detectar clics o toques
     document.addEventListener("click", (e) => {
       createShootingText(e.clientX, e.clientY);
     });
